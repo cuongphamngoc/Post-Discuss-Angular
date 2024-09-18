@@ -1,0 +1,18 @@
+<div class ="container">
+  <div class ="title"> <h1><strong>{{ article?.title }}</strong></h1></div>
+
+   <div class ="subcription">
+    By {{ article?.author?.name }} on {{ article?.createdAt }}
+   </div>
+
+      <div class="content" [innerHTML]="article?.content"></div>
+      <h3>Comments</h3>
+     <div *ngIf="article?.comments?.length != 0">
+      <div *ngFor="let comment of article?.comments">
+        <strong>{{ comment.author }}:</strong> {{ comment.content }}
+      </div>
+     </div>
+
+
+
+</div>

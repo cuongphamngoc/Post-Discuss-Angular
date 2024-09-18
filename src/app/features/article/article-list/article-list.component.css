@@ -1,0 +1,71 @@
+.container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: start;
+  flex-direction: column;
+}
+.scrolling-tab-group{
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 100%;
+
+}
+
+.mat-tab-labels {
+  display: flex;
+  overflow-x: auto; /* Cho phép cuộn ngang */
+  white-space: nowrap; /* Ngăn không cho các tab gãy dòng */
+  border-bottom: 1px solid #ddd; /* Đường viền dưới cho các tab */
+}
+
+.mat-tab-label {
+  flex: 0 0 150px; /* Chiều rộng cố định cho từng tab */
+  text-align: center;
+  padding: 16px;
+  cursor: pointer;
+}
+
+.mat-tab-body {
+  flex: 1;
+  overflow: hidden;
+}
+
+.mat-tab-body-content {
+  display: flex;
+  flex-direction: column;
+}
+.scrollable-content {
+  max-height: 500px; /* Chiều cao tối đa của nội dung có thể cuộn */
+  overflow-y: auto;
+  width: 100%;
+}
+
+mat-card {
+  width: 100%; /* Để mat-card chiếm toàn bộ chiều rộng của container */
+  margin-bottom: 20px; /* Khoảng cách giữa các thẻ */
+}
+
+.card-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.content {
+  flex: 1;
+}
+
+.image-container {
+  margin-left: 20px;
+}
+
+.image-container img {
+  width: 100px; /* Chiều rộng tối đa của hình ảnh */
+  max-height: 100px; /* Chiều cao tối đa của hình ảnh */
+  object-fit: cover;
+}
+
+mat-paginator {
+  padding-bottom: 10px;
+}

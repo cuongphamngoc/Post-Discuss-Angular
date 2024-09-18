@@ -1,0 +1,21 @@
+.container {
+  width: 100%;
+  height: 80vh;
+  margin: 20px;
+  padding: 20px;
+  overflow-y: scroll;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+.subcription{
+  font-weight: 100;
+  color: gray;
+  margin-bottom: 20px;
+}
+.content{
+  width: 60vw;
+  display: flex;
+  flex-direction: column;
+}

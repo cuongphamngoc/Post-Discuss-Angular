@@ -1,0 +1,14 @@
+.footer-toolbar {
+  position: fixed;
+
+  height: 60px;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.spacer {
+  flex: 1 1 auto;
+}

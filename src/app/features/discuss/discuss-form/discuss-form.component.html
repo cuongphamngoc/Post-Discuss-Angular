@@ -1,0 +1,26 @@
+<div class ="container">
+  <h1>{{action}} Question</h1>
+
+  <form [formGroup]="discussForm" (submit)="onSubmit()">
+
+    <mat-form-field>
+     <mat-label>Title</mat-label>
+     <input matInput type = "text" formControlName="title">
+     <mat-error *ngIf="discussForm.get('title')?.hasError('required')">
+       Title is required.
+     </mat-error>
+    </mat-form-field>
+
+
+     <div #editor class ="quill-container">
+      <quill-editor
+      formControlName="content"
+      [styles]="editorStyle"
+      [modules]="editorModules"
+    ></quill-editor></div>
+
+
+   <button mat-raised-button color="primary" type="submit">Submit</button>
+   </form>
+
+  </div>

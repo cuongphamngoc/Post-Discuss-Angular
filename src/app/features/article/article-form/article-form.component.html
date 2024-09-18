@@ -1,0 +1,65 @@
+<div class ="container">
+<h1>{{action}} Article</h1>
+
+
+
+
+<form [formGroup]="articleForm" (submit)="onSubmit()">
+
+  <mat-form-field>
+   <mat-label>Title</mat-label>
+   <input matInput type = "text" formControlName="title">
+   <mat-error *ngIf="articleForm.get('title')?.hasError('required')">
+     Title is required.
+   </mat-error>
+  </mat-form-field>
+   <mat-form-field>
+     <mat-label>Image</mat-label>
+     <input matInput type="text" formControlName="image" [readonly] = "true">
+     <mat-error *ngIf="articleForm.get('image')?.hasError('required')">
+      Image is required.
+    </mat-error>
+     <button matSuffix type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
+     <input hidden (change)="onFileSelected()" #fileInput type="file" id="file" >
+   </mat-form-field>
+   <mat-form-field class="example-chip-list">
+    <mat-label>Tag</mat-label>
+    <mat-chip-grid #chipGrid aria-label="Fruit selection">
+      <mat-chip-row *ngFor="let tag of articleForm.get('tags')!.value" [removable]="true" (removed)="removeTag(tag)">
+        {{tag}}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip-row>
+    </mat-chip-grid>
+    <input
+      [formControl]="tagsFormControl"
+      [matAutocomplete]="auto"
+      [matChipInputFor]="chipGrid"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      (matChipInputTokenEnd)="addTag($event)"
+
+      placeholder="New tag">
+
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+        {{tag}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error *ngIf="articleForm.get('tags')?.hasError('minimumTags')">
+      You must select at least one tag.
+    </mat-error>
+  </mat-form-field>
+   <div #editor class ="quill-container">
+    <quill-editor
+    formControlName="content"
+    [styles]="editorStyle"
+    [modules]="editorModules"
+  ></quill-editor></div>
+
+
+ <button mat-raised-button color="primary" type="submit">Submit</button>
+ </form>
+
+
+
+
+</div>

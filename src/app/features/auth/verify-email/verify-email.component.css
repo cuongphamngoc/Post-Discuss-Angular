@@ -1,0 +1,17 @@
+/* verify-email.component.css */
+.verify-email-container {
+  text-align: center;
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.success-snackbar {
+  background-color: #4caf50; /* Màu xanh lá cho thông báo thành công */
+}
+
+.error-snackbar {
+  background-color: #f44336; /* Màu đỏ cho thông báo lỗi */
+}

@@ -1,0 +1,49 @@
+<mat-card>
+  <mat-card-title>Register</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="registerForm" (click)="onSubmit()">
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput placeholder="Enter your email" formControlName="email" />
+        <mat-error *ngIf="registerForm.get('email')?.hasError('required')">
+          Email is required.
+        </mat-error>
+        <mat-error *ngIf="registerForm.get('email')?.hasError('email')">
+          Email must is a valid email.
+        </mat-error>
+        <mat-error *ngIf="registerForm.get('email')?.hasError('uniqueEmail')">
+          Email is taken, try another one.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Full Name</mat-label>
+        <input matInput placeholder="Enter your full name" type="text" formControlName="fullname" />
+        <mat-error *ngIf="registerForm.get('fullname')?.hasError('required')">
+          Name is required.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput placeholder="Enter your password" type="password" formControlName="password" />
+        <mat-error *ngIf="registerForm.get('password')?.hasError('required')">
+          Password is required.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput placeholder="Confirm your password" type="password" formControlName="confirmPassword"/>
+        <mat-error *ngIf="registerForm.get('confirmPassword')?.hasError('required')">
+          Confirm password is required.
+        </mat-error>
+        <mat-error *ngIf="registerForm.get('confirmPassword')?.hasError('passwordMismatch')">
+          Confirm password is not match .
+        </mat-error>
+      </mat-form-field>
+
+      <button type ="button" mat-raised-button color="primary">Register</button>
+    </form>
+    <p>Already have an account? <a routerLink="/login">Login</a></p>
+  </mat-card-content>
+</mat-card>

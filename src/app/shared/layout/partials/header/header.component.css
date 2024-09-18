@@ -1,0 +1,47 @@
+.header{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  display: flex;
+  justify-content: space-around;
+  z-index: 1000;
+  overflow: hidden;
+  position:absolute;
+
+
+}
+.searchbox{
+  margin-top: 20px;
+  width: 600px;
+}
+.left-nav{
+  display: flex;
+  justify-content: space-between;
+}
+.navlink{
+  margin-right: 20px;
+}
+.left-nav a{
+  font-size:18px;
+}
+.avatar {
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+.right-nav{
+  width: 150px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.userinfo-container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 5px;
+}

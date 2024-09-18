@@ -1,0 +1,88 @@
+<div class ="container">
+<div class="scrollable-content" #Chatbox>
+    <div *ngIf="messages.length == 0">No messages</div>
+    <div *ngFor="let message of messages; let i = index" [attr.id]="'message-' + message.id" class="message"
+         (mouseover)="hoveredMessageId = message.id"
+         (mouseleave)="hoveredMessageId = null">
+      <mat-card class="message-card">
+        <div class="message-header">
+          <img src="https://images-ng.pixai.art/images/orig/44254739-a9ce-473e-9eb6-520b2ac87921" class="avatar" alt="avatar">
+          <div class="user-details">
+            <div class="username-timestamp">
+              <span class="username"><strong>{{ message.username }}</strong></span>
+              <span class="timestamp">{{ message.timestamp | date:'short' }}</span>
+            </div>
+            <div class="message-content">
+              <div *ngIf="message.type === 'TEXT'">{{ message.text }}</div>
+              <div *ngIf="message.type === 'IMAGE'"  class ="message-image">
+                <img [src] = "message.text">
+              </div>
+
+              <div *ngIf="message.messageReplyTo" class="reply-to" (click)="scrollToMessage(message.messageReplyTo.id)">
+                <span>Replying to {{ message.messageReplyTo.username }}</span>
+                <div class="original-message" *ngIf="message.messageReplyTo.type==='TEXT'">{{ message.messageReplyTo.text }}</div>
+                <div class="original-message" *ngIf="message.messageReplyTo.type!=='TEXT'">Click to view attachment <mat-icon>attachment</mat-icon></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="message-actions" [ngClass]="{'visible': hoveredMessageId === message.id}">
+          <button mat-icon-button (click)="reactToMessage(message)">
+            <mat-icon>thumb_up</mat-icon>
+          </button>
+          <button mat-icon-button (click)="reactToMessage(message)">
+            <mat-icon>thumb_down</mat-icon>
+          </button>
+          <button mat-icon-button (click)="replyToMessage(message)">
+            <mat-icon>reply</mat-icon>
+          </button>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<div class="message-input-container">
+  <ng-container *ngIf="(isLoggedIn$ | async); else notLoggedIn">
+    <div class ="container-input-message">
+      <div class="reply-message" *ngIf="selectedReplyMessage">
+        <div class="reply-header">
+          <button class="close-button" (click)="clearReply()">
+            <mat-icon>close</mat-icon>
+          </button>
+          <mat-icon>reply</mat-icon>
+          <span>Replying to: {{selectedReplyMessage.username}} </span>
+        </div>
+      </div>
+    <div class = "input-content">
+      <a mat-icon-button [matMenuTriggerFor]="menu" class="input-item"><mat-icon>add</mat-icon></a>
+
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item >
+          <mat-icon>attach_file</mat-icon>
+          <span>File</span>
+        </button>
+        <button mat-menu-item (click)="triggerFileInput()">
+          <mat-icon>image</mat-icon>
+          <span>Image</span>
+        </button>
+        <input type="file" #fileInput accept="image/*" (change)="onFileSelected($event)" style="display: none;" />
+      </mat-menu>
+
+
+
+      <form [formGroup]="messageForm" (submit)="sendMessage($event)">
+        <textarea id="autoResizeTextarea" #messageTextarea
+               rows="1"
+               (keydown)="onKeydown($event)"
+               (input)="autoResize($event)"   matInput placeholder="Nhập tin nhắn..." formControlName="message" class ="input-item"></textarea>
+        <input type="hidden" formControlName="replyMessageId"/>
+
+      </form>
+    </div>
+    </div>
+  </ng-container>
+  <ng-template #notLoggedIn>
+    <span>Bạn phải đăng nhập để gửi tin nhắn </span>
+    <a mat-raised-button routerLink="/login">Login</a>
+  </ng-template>
+</div>

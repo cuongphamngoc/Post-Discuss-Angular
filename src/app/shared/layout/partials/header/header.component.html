@@ -1,0 +1,67 @@
+<mat-toolbar class="header">
+
+  <div class ="left-nav">
+    <a routerLink="" mat-button color="primary" class ="navlink">Home</a>
+    <a routerLink="/article" mat-button color="primary" class ="navlink">Article</a>
+    <a routerLink="/discuss" mat-button color="primary" class ="navlink">Discuss</a>
+    <a routerLink="/chatbox" mat-button color="primary">Chatbox</a>
+  </div>
+
+  <span class="example-spacer"></span>
+  <mat-form-field class ="searchbox">
+    <input matInput placeholder="Search" aria-label="Search input" >
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+  <ng-container *ngIf="!( isLoggedIn$ | async ); else loggedInTemplate">
+    <div class="auth-div">
+      <a routerLink="/login" mat-button color="primary">Login</a>
+      <a routerLink="/register" mat-button color="primary">Signup</a>
+    </div>
+  </ng-container>
+  <ng-template #loggedInTemplate>
+   <div class ="right-nav">
+    <button matSuffix mat-button color="primary" [matMenuTriggerFor]="writeMenu">
+      Write
+      <mat-icon>write</mat-icon>
+    </button>
+
+    <!-- Write Menu -->
+    <mat-menu #writeMenu="matMenu">
+      <a mat-menu-item routerLink="article/new">
+        <mat-icon>article</mat-icon>
+        <span>Article</span>
+      </a>
+      <a mat-menu-item routerLink="discuss/new">
+        <mat-icon>question_answer</mat-icon>
+        <span>Question</span>
+      </a>
+    </mat-menu>
+
+    <!-- User Menu Trigger -->
+    <img *ngIf="userInfo$ |  async as user" [src] ="user.avatarUrl" alt="Avatar" class="avatar" [matMenuTriggerFor]="userMenu">
+
+    <!-- User Menu -->
+    <mat-menu #userMenu="matMenu">
+      <div mat-menu-item class ="userinfo-container">
+        <img *ngIf="userInfo$ |  async as user" [src] = "user.avatarUrl" class="avatar" alt="avatar">
+        <span *ngIf="userInfo$ |  async as user">{{user.name}}</span>
+
+      </div>
+      <mat-divider></mat-divider>
+      <a mat-menu-item (click)="logout()">
+        <mat-icon>person</mat-icon>
+        <span>Profile</span>
+      </a>
+      <a mat-menu-item (click)="logout()">
+        <mat-icon>bookmark</mat-icon>
+        <span>Library</span>
+      </a>
+      <a mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </a>
+    </mat-menu>
+
+   </div>
+  </ng-template>
+</mat-toolbar>
